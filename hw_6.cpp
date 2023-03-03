@@ -16,6 +16,20 @@
 //Використати в функції main всі оголошені в класі конструктори та продемонструвати роботу деструктора.Створити та використати вказівник на об‘єкт класу(пам‘ять під об‘єкт виділяється в  HEAP).
 
 
+//class My_Class {
+//	int num;
+//public:
+//	void set_number(int value) { num = value; }
+//	void show_number();
+//};
+//
+//void My_Class::show_number()
+//{
+//	std::cout << num << "\n";
+//}
+
+
+
 class Medicine {
 	unsigned short amountOfMed;//by default it is privat field
 public:
@@ -65,58 +79,26 @@ public:
 	}
 	~Medicine() {
 		delete [] nameOfMed;
-
+		delete pDelegation;
 		std::cout << "Destructor!" << std::endl;
 	}
 
 };
 int main(void) {
-
-	//const int SIZE = 3;
-	//Medicine medicine[SIZE];
-	//Medicine price;
-
-	//This code needs to fill our objects
-	//for (int i = 0; i < SIZE; i++)
-	//{
-	//	unsigned int amount;
-	//	std::cout << "\nEnter the price: ";
-	//	std::cin >> medicine[i].priceOfMed;
-	//	std::cout << "\nEnter the name: ";
-	//	std::cin >> medicine[i].nameOfMed;
-	//	std::cout << "\nEnter amount of med: ";
-	//	std::cin >> amount;
-	//	medicine[i].SetAmount(amount);
-
-	//}
 	char name[] = "Strepsils";
 	unsigned short amount = 33;
 	float price = 14.5;
+
 	//Medicine a;//call constuctor without any parameters or with default parmtrs
 	//Medicine b(name);//call constr with one par
 	//Medicine c(amount, price);//call constr with two par
 	//Medicine d(&amount, name, &price);//cal constr with three
-	{
-		Medicine delegation(&amount, name, &price);
-	}
 	
-
-	//float generalPrice = 0;
-	//char letter;
-	//bool haveItem = false;
-	//std::cout << "\nEnter first letter ";
-	//std::cin >> letter;
-	//for (int i = 0; i < SIZE; i++)
-	//{
-	//	if (toupper(medicine[i].nameOfMed[0]) == toupper(letter)) {
-	//		std::cout << "Name of med on your letter: " << medicine[i].nameOfMed << std::endl;
-	//		haveItem = true;
-	//	}
-	//	std::cout << "Name " << medicine[i].nameOfMed << " price " << medicine[i].priceOfMed << " amount " << medicine[i].GetAmount() << std::endl;
-	//}
-	//if (haveItem == false)
-		//std::cout << "We haven`t this medicine`s name!" << std::endl;
-
-	//std::cout << "\nFunc general sum: " << price.getGeneralPrice(medicine, SIZE);
+	Medicine delegation(&amount, name, &price);
+	Medicine* pDelegation = new Medicine;
+	pDelegation = &delegation;
+	pDelegation->priceOfMed = 14.8;
+	pDelegation->SetAmount(100);
+	std::cout << "Res: " << delegation.priceOfMed << std::setw(15) << pDelegation->GetAmount() << std::endl;
 }
 
