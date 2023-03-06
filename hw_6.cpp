@@ -16,20 +16,6 @@
 //Використати в функції main всі оголошені в класі конструктори та продемонструвати роботу деструктора.Створити та використати вказівник на об‘єкт класу(пам‘ять під об‘єкт виділяється в  HEAP).
 
 
-//class My_Class {
-//	int num;
-//public:
-//	void set_number(int value) { num = value; }
-//	void show_number();
-//};
-//
-//void My_Class::show_number()
-//{
-//	std::cout << num << "\n";
-//}
-
-
-
 class Medicine {
 	unsigned short amountOfMed;//by default it is privat field
 public:
@@ -79,7 +65,6 @@ public:
 	}
 	~Medicine() {
 		delete [] nameOfMed;
-		delete pDelegation;
 		std::cout << "Destructor!" << std::endl;
 	}
 
@@ -95,10 +80,13 @@ int main(void) {
 	//Medicine d(&amount, name, &price);//cal constr with three
 	
 	Medicine delegation(&amount, name, &price);
-	Medicine* pDelegation = new Medicine;
-	pDelegation = &delegation;
-	pDelegation->priceOfMed = 14.8;
+	
+	Medicine* pDelegation;
+	pDelegation = new Medicine;
+
+	pDelegation->priceOfMed = 14.6;
 	pDelegation->SetAmount(100);
-	std::cout << "Res: " << delegation.priceOfMed << std::setw(15) << pDelegation->GetAmount() << std::endl;
+	std::cout << "Price: " << delegation.priceOfMed << std::setw(15) << " amount: " << pDelegation->GetAmount() << std::endl;
+	delete pDelegation;
 }
 
