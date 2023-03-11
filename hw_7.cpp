@@ -76,6 +76,11 @@ public:
 	void Show() {
 		std::cout << "PriceOfMed : " << this->priceOfMed << " " << this->amountOfMed << std::endl;
 	}
+	//----Default create constructor without parameters (constructor by default)
+	//Medicine() = default;
+	//----Delete creating copy constr
+	Medicine(Medicine& object) = delete;
+
 
 	~Medicine() {
 		delete[] nameOfMed;
@@ -86,12 +91,12 @@ public:
 
 //----Functions: pass object by value and by reference 
 
-//void FOO(Medicine object) {
-//	std::cout << "Working FOO " << &object << std::endl;//If i pass by value it`s just copy the object so constructor and desctructor will be call
-//}
-//void FOO_2(Medicine& object) {
-//	std::cout << "Working FOO_2 " << &object << std::endl;//If i pass by reference constructor and desctuctor won`t be call
-//}
+void FOO(Medicine object) {
+	std::cout << "Working FOO " << &object << std::endl;//If i pass by value it`s just copy the object so constructor and desctructor will be call
+}
+void FOO_2(Medicine& object) {
+	std::cout << "Working FOO_2 " << &object << std::endl;//If i pass by reference constructor and desctuctor won`t be call
+}
 
 int main(void) {
 	char name[] = "Strepsils";
@@ -117,6 +122,7 @@ int main(void) {
 	//When i add EXPLICIT now i can pass the argument like this
 	Medicine changingObject(246.7);
 	changingObject.Show();
+
 
 	FOO(delegation);//Pass by value 
 
