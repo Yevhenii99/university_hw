@@ -11,7 +11,7 @@
 
 class Weapon
 {
-	unsigned int* pamountOfBullet;
+	unsigned int amountOfBullet;
 	unsigned int massOfItem;
 	unsigned int shotsPerMin;
 	float reloadTimeSec;
@@ -19,35 +19,42 @@ class Weapon
 
 public:
 
-	void SetAmount(unsigned int* x) {
-		this->pamountOfBullet = x;
-		counter++;
+	void SetAmount(unsigned int x) {
+		this->amountOfBullet = x;
 	}
-	unsigned int* GetAmount() {
-		return pamountOfBullet;
+	unsigned int GetAmount() {
+		return amountOfBullet;
 	}
 	int Show() {
 		return counter;
 	}
 	void SetMass(unsigned int mass) {
 		massOfItem = mass;
-		counter++;
 	}
 	unsigned int GetMass() {
 		return massOfItem;
+	}
+	//---default Ctor 
+	Weapon() {
+		counter++;
+	}
+	~Weapon() {
+		counter--;
 	}
 };
 
 int Weapon::counter = 0;
 
 int main(void) {
-	unsigned int amount;
 
 	Weapon svd;
-	std::cout << "Set amount for svd: " << std::endl;
-	std::cin >> amount;
-	svd.SetAmount(&amount);
-	unsigned int amountSVD = *(svd.GetAmount());
+	svd.SetAmount(17);
 	svd.SetMass(7);
-	std::cout << "counter of all Get Methods : " << svd.Show() << std::endl;
+	std::cout << "Svd amount: " << svd.GetAmount() << " mass(kg): " << svd.GetMass() << std::endl;
+	Weapon m_16(svd);
+	m_16.SetMass(23);
+	m_16.SetAmount(4);
+	std::cout << "M 16 amount: " << m_16.GetAmount() << " mass(kg) " << m_16.GetMass() << std::endl;
+	Weapon ak_74;
+	std::cout << "Counter: " << ak_74.Show() << std::endl;
 }
