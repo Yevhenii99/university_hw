@@ -40,7 +40,7 @@ public:
 	unsigned int GetMass() {
 		return massOfItem;
 	}
-	static void Print() {
+	static void PrintCounter() {
 		std::cout << "Counter = " << counter << std::endl;
 		//std::cout << "Price of weapon = " << priceOfWeapon << std::endl;//Error (static methods can work only with static types of data);
 	}
@@ -68,6 +68,15 @@ public:
 	char* GetNameOfWeapon() {
 		return nameOfWeapon;
 	}
+	int getChangeMass()const {
+		//return massOfItem++;//Error 
+		return pow(massOfItem, 3);// (?)
+	}
+	void ShowAndChange()const {
+		//FIRE_RANGE = 14 + 5;//Cannot be modify
+		counter = 12;
+		std::cout << "ShotsPerMin: " << counter << std::endl;
+	}
 	//---default Ctor 
 	Weapon() {
 		counter++;
@@ -81,6 +90,11 @@ public:
 int Weapon::counter = 0;
 int Weapon::count = 0;
 
+//----Constexpr func
+constexpr int getSize(int x, int y) {
+	return x + y;
+}
+
 int main(void) {
 	//---Const variables
 	short x;
@@ -88,10 +102,12 @@ int main(void) {
 	std::cin >> x;
 	const short speedOfBullet = x;
 	//int array[speedOfBullet];//Error because var speedOfBullet calculate during program work but for array`s size need during compilation
+	//---Constexpr example 
+	constexpr int SIZE1 = getSize(10, 5);
+	int listValues[SIZE1];
 	
-
 	std::cout << "Increase counter value: " << Weapon::IncreaseCounter() << std::endl;//Example #1 call static method
-	Weapon::Print();//Example #2 call static method
+	Weapon::PrintCounter();//Example #2 call static method
 
 	std::cout << "Count: " << Weapon::count << std::endl; //I can read value from static var before any class created if it`s public field
 	//std::cout << " Price of weapon: " << Weapon::priceOfWeapon << std::endl; //Error i can`t read value from priceOfWeapon if no object created
@@ -114,10 +130,13 @@ int main(void) {
 	std::cin.ignore();
 	std::cin.getline(name, SIZE);
 
-	Weapon browning(name);
-	std::cout << "Name of weapon: " << browning.GetNameOfWeapon();
+	std::cout << "Change MASS: " << svd.getChangeMass() << std::endl;
+
+	Weapon machineGun(name);
+	std::cout << "Name of weapon: " << machineGun.GetNameOfWeapon() << std::endl;
 
 	//Work with const variables
 	std::cout << "Value in const DAMAGE: " << svd.GetDamage() << std::endl;
 	std::cout << "FireRange: " << svd.GetFireRange() << std::endl;
+	
 }
