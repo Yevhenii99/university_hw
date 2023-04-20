@@ -11,7 +11,8 @@ class Vehicle {
 public:
 	Vehicle() = default;
 	Vehicle(int speed, unsigned char weels, unsigned short length) : speed(speed), weelsAmount(weels), length(length) {}
-	virtual void Print() {
+	//---key word FINAL
+	virtual void Print() /* -> final <- */ {
 		std::cout << "Print from class vehicle\n";
 	}
 	virtual int getMovedDist(int speed, int time) {
@@ -36,15 +37,18 @@ public:
 		movedDist = speed * time;
 		return movedDist;
 	}
+	//-> Method cannot be override if this method on base class have key word FINAL
+	//void Print() override {
+	//	std::cout << "Print from class car" << std::endl;
+	//}
 	void Print() override {
-		std::cout << "Print from class car" << std::endl;
-		//std::cout << "Moved distance: " << movedDist << std::endl;
+	std::cout << "Print from class car" << std::endl;
 	}
 	Car(const char* str) {
 		color = _strdup(str);
 		std::cout << "ctor car\n";
 	}
-	~Car() {
+	~Car() override {
 		std::cout << "Destr car\n";
 		delete color;
 	}
@@ -56,3 +60,35 @@ void ShowInfo(Vehicle& obj) {
 void ShowInfo(Vehicle* obj) {
 	return obj->Print();
 }
+//---abstract class
+class Persone {
+	char* name;
+public:
+	Persone(const char* name) {
+		this->name = _strdup(name);
+	}
+	virtual float weightInLbs(float a) = 0;
+	char* GetName() { return name; }
+	virtual ~Persone() {
+		delete[] name;
+	}
+};
+class Women:public Persone
+{
+	const float COEF = 2.2f;
+	char power;
+public:
+	Women(const char* name, char power) :Persone(name), power(power) {}
+	float weightInLbs(float a) override { return a * COEF; }
+	~Women() override {}
+};
+class Man:public Persone
+{
+	const float COEF = 2.2f;
+	char power;
+public:
+	Man(const char* name, char power) :Persone(name), power(power) {}
+	float weightInLbs(float a) override { return a * COEF; }
+	~Man() override {}
+};
+
